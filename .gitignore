@@ -52,3 +52,12 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+# Agent instruction files
+*.instructions.md
+*-post-c-pm-*
+*-pre-c-pm-*
+*-post-f-pm-*
+*-pre-f-pm-*
+*-post-r-pm-*
+*-pre-r-pm-*
