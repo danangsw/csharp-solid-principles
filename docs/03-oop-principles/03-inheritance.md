@@ -95,12 +95,10 @@ classDiagram
     Employee <|-- PartTimeEmployee : inherits
     Employee <|-- ContractorEmployee : inherits    
     FullTimeEmployee <|-- Manager : inherits
-```
 
-```text
-    note for Employee : "Abstract base class defines\ncommon properties and behaviors.\nAbstract methods force\nimplementation in derived classes."
+    note for Employee "Abstract base class defines\ncommon properties and behaviors.\nAbstract methods force\nimplementation in derived classes."
     
-    note for FullTimeEmployee : "Concrete implementation\nadds full-time specific\nfeatures like vacation days\nand health insurance."
+    note for FullTimeEmployee "Concrete implementation\nadds full-time specific\nfeatures like vacation days\nand health insurance."
 ```
 
 ## 🚫 Violation Example (Code Duplication Without Inheritance)
