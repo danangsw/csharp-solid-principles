@@ -46,13 +46,8 @@ classDiagram
     }
 
     BankAccount --> Transaction : contains
-```
 
-```text
-note for BankAccount:
-    Private fields (-) are encapsulated
-    Public methods (+) provide controlled access
-    Private methods (-) handle internal logic
+    note for BankAccount : Encapsulation hides private fields and provides controlled access through public methods
 ```
 
 ## 🚫 Violation Example (Poor Encapsulation)
