@@ -25,29 +25,29 @@ classDiagram
         -string accountNumber
         -List~Transaction~ transactions
         -DateTime lastAccessed
-
+        
         +BankAccount(accountNumber: string, initialBalance: decimal)
         +Deposit(amount: decimal) : bool
         +Withdraw(amount: decimal) : bool
         +GetBalance() : decimal
         +GetStatement() : List~Transaction~
-
+        
         -ValidateAmount(amount: decimal) : bool
         -LogTransaction(type: TransactionType, amount: decimal) : void
         -UpdateLastAccessed() : void
     }
-
-     class Transaction {
+    
+    class Transaction {
         +DateTime Date
         +TransactionType Type
         +decimal Amount
         +decimal BalanceAfter
         +string Description
     }
-
+    
     BankAccount --> Transaction : contains
-
-    note for BankAccount : Encapsulation hides private fields and provides controlled access through public methods
+    
+    note for BankAccount "Encapsulation hides private fields and provides controlled access through public methods"
 ```
 
 ## 🚫 Violation Example (Poor Encapsulation)
