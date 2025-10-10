@@ -71,12 +71,9 @@ classDiagram
     IPaymentProcessor <|.. CreditCardProcessor : implements
     IPaymentProcessor <|.. PayPalProcessor : implements
     IPaymentProcessor <|.. BankTransferProcessor : implements
-```
 
-```text
-    note for IPaymentProcessor : "Abstract interface hides\nimplementation complexity.\nClients only see essential\noperations."
-    
-    note for CreditCardProcessor : "Concrete implementation\nhandles credit card specifics:\n- Encryption\n- Fraud detection\n- Bank API calls"
+    note for IPaymentProcessor "Abstract interface hides implementation complexity. Clients only see essential\noperations."
+    note for CreditCardProcessor "Concrete implementation\nhandles credit card specifics: - Encryption - Fraud detection - Bank API calls."
 ```
 
 ## 🚫 Violation Example (No Abstraction)
@@ -1689,5 +1686,6 @@ public class OrderServiceAbstractionTests
 - [ ] Testing is simplified through mockable abstractions
 
 ---
+
 
 **Previous**: [← Encapsulation](./01-encapsulation.md) | **Next**: [Inheritance →](./03-inheritance.md)
