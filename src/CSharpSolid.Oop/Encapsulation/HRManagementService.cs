@@ -15,7 +15,7 @@ public class HRManagementService
         _timeProvider = timeProvider ?? new SystemTimeProvider();
     }
 
-    public void HireEmployee(EmployeeDataModel model)
+    public string HireEmployee(EmployeeDataModel model)
     {
         try
         {
@@ -32,6 +32,7 @@ public class HRManagementService
             .Build();
 
             _employees.Add(newEmployee);
+            return employeeId;
         }
         catch (Exception ex)
         {       
