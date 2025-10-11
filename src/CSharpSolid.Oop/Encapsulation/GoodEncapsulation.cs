@@ -11,6 +11,7 @@ public class GoodEmployee
     private const int MaxProjectsPerEmployee = 5;
     private const int MaxNameLength = 50;
     private const decimal MaxSalary = 1000000m;
+    private const decimal MinSalary = 0m;
     private const decimal MinBonusPercentage = 0.0m; // 0%
     private const decimal MaxBonusPercentage = 1.0m; // 100%
     private const decimal MaxSalaryIncreasePercentage = 0.5m; // 50%
@@ -33,22 +34,23 @@ public class GoodEmployee
     private readonly string _employeeId;
     private readonly ITimeProvider _timeProvider;
 
-    // Constructor with validation
-    public GoodEmployee(EmployeeDetailBuilder builder)
+    // Internal constructor for builder pattern
+    internal GoodEmployee(EmployeeDetailBuilder builder)
     {
         _employeeId = builder.EmployeeId ?? throw new ArgumentException("Employee ID is required", nameof(builder.EmployeeId));
-        _firstName = builder.FirstName;
-        _lastName = builder.LastName;
-        _socialSecurityNumber = builder.SocialSecurityNumber;
-        _salary = builder.Salary;
-        _department = builder.Department;
-        _hireDate = builder.HireDate;
-        _timeProvider = builder.TimeProvider ?? new SystemTimeProvider();
 
+        _firstName = builder.FirstName ?? string.Empty;
+        _lastName = builder.LastName ?? string.Empty;
+        _socialSecurityNumber = builder.SocialSecurityNumber ?? string.Empty;
+        _salary = builder.Salary;
+        _department = builder.Department ?? string.Empty;
+        _hireDate = builder.HireDate;
+
+        _timeProvider = builder.TimeProvider ?? new SystemTimeProvider();
         _projects = new List<string>();
         _payrollHistory = new List<PayrollRecord>();
         _isActive = true;
-        _bonusPercentage = 0.0m;
+        _bonusPercentage = MinBonusPercentage;
     }
 
     public string EmployeeId => _employeeId;
@@ -90,7 +92,7 @@ public class GoodEmployee
         get => _salary;
         set
         {
-            if (value < 0)
+            if (value < MinSalary)
                 throw new ArgumentException("Salary cannot be negative", nameof(value));
 
             if (value > MaxSalary)
@@ -201,7 +203,7 @@ public class GoodEmployee
         _projects.Remove(projectName);
     }
 
-    public void PromoteWithSalaryIncrease(decimal increasePercentage)
+    public void PromoteWithSalaryIncrease(decimal increasePercentage, string reason)
     {
         if (!_isActive)
             throw new InvalidOperationException("Cannot promote an inactive employee.");
@@ -271,10 +273,9 @@ public class GoodEmployee
 
         ValidatePayrollPeriod(payrollPeriodStart, payrollPeriodEnd);
 
-        var workingDays = CalculateWorkingDays(payrollPeriodStart, payrollPeriodEnd);
-        var monthlyDays = 30; // Assuming 30-day month
-        var dailyRate = _salary / monthlyDays;
-        var basePay = dailyRate * workingDays;
+        var totalDaysInPeriod = (payrollPeriodEnd - payrollPeriodStart).TotalDays + 1;
+        var workingDaysInPeriod = CalculateWorkingDays(payrollPeriodStart, payrollPeriodEnd);
+        var basePay = _salary / (decimal)totalDaysInPeriod * workingDaysInPeriod;
         var bonusPay = basePay * _bonusPercentage;
         var totalPay = basePay + bonusPay;
 
@@ -286,7 +287,7 @@ public class GoodEmployee
             BaseSalary = basePay,
             BonusPay = bonusPay,
             TotalPay = totalPay,
-            WorkingDays = workingDays
+            WorkingDays = workingDaysInPeriod
         };
 
         _payrollHistory.Add(new PayrollRecord
