@@ -1,5 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using CSharpSolid.Oop.Encapsulation;
 
 namespace CSharpSolid.ConsoleApp;
@@ -8,25 +6,33 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        // Setup dependency injection
-        var serviceProvider = ConfigureServices();
+        // Setup our custom IoC container
+        var container = ConfigureServices();
 
-        var hrService = serviceProvider.GetRequiredService<HRManagementService>();
+        var hrService = container.GetService<HRManagementService>();
         var consoleApp = new HRConsoleApp(hrService);
 
         consoleApp.Run();
     }
 
-    private static IServiceProvider ConfigureServices()
+    private static SimpleIoCContainer ConfigureServices()
     {
-        var services = new ServiceCollection();
+        var container = new SimpleIoCContainer();
 
-        // Add logging
-        services.AddLogging(configure => configure.AddConsole());
+        // Register our simple logger
+        container.AddSingleton<ISimpleLogger, ConsoleLogger>();
 
-        // Add HR Management Service
-        services.AddSingleton<HRManagementService>();
+        // Register logger adapter for HRManagementService
+        container.AddTransient(typeof(Microsoft.Extensions.Logging.ILogger<HRManagementService>),
+            typeof(LoggerAdapter<HRManagementService>));
 
-        return services.BuildServiceProvider();
+        // Register time provider
+        container.AddSingleton<CSharpSolid.Oop.Encapsulation.ITimeProvider,
+            CSharpSolid.Oop.Encapsulation.SystemTimeProvider>();
+
+        // Register HR Management Service
+        container.AddSingleton<HRManagementService, HRManagementService>();
+
+        return container;
     }
 }
