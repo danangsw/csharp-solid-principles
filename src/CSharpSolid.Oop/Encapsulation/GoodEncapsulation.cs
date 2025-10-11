@@ -123,7 +123,9 @@ public class GoodEmployee
     {
         get => _hireDate;
         set
-        {
+        {   
+            if (value == default)
+                throw new ArgumentException("Hire date is required", nameof(value));
             if (value > _timeProvider.UtcNow)
                 throw new ArgumentException("Hire date cannot be in the future", nameof(value));
             if (value < MinHireDate)
@@ -499,6 +501,8 @@ public class EmployeeDetailBuilder
             throw new InvalidOperationException("SocialSecurityNumber is required");
         if (string.IsNullOrWhiteSpace(_department))
             throw new InvalidOperationException("Department is required");
+        if (_hireDate == default)
+            throw new InvalidOperationException("HireDate is required");
 
         if (_timeProvider == null)
             _timeProvider = new SystemTimeProvider();

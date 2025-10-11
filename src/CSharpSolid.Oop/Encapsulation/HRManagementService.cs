@@ -117,7 +117,7 @@ public class HRManagementService
 
     private string GenerateEmployeeId()
     {
-        return $"EMP-{DateTime.Now:yyyyMMdd}-{_employees.Count + 1:D4}";
+        return $"EMP-{_timeProvider.UtcNow:yyyyMMdd}-{_employees.Count + 1:D4}";
     }
 }
 
