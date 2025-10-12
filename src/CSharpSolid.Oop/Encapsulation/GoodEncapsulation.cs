@@ -92,7 +92,7 @@ public class GoodEmployee
         get => _salary;
         set
         {
-            if (value < MinSalary)
+            if (value <= MinSalary)
                 throw new ArgumentException("Salary cannot be negative", nameof(Salary));
 
             if (value > MaxSalary)

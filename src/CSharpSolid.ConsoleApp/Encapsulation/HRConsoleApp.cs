@@ -85,7 +85,7 @@ public class HRConsoleApp
         Console.Write("Social Security Number (XXX-XX-XXXX): ");
         model.SocialSecurityNumber = Console.ReadLine();
 
-        Console.Write("Department (IT, Finance, HR, Marketing, Operation): ");
+        Console.Write("Department (IT, Finance, HR, Marketing, Operation, Engineering): ");
         model.Department = Console.ReadLine();
 
         Console.Write("Salary: ");

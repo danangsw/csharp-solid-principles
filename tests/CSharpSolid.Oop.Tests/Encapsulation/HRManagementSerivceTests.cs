@@ -66,6 +66,10 @@ public class HRManagementServiceTests
     [InlineData("John", "Doe", null, "Engineering", 60000, "2023-01-01", "SocialSecurityNumber")]
     [InlineData("John", "Doe", "123-45-6789", null, 60000, "2023-01-01", "Department")] // Added Department null case
     [InlineData("John", "Doe", "123-45-6789", "Engineering", 60000, "2029-01-01", "HireDate")] // Hire date in the future
+    [InlineData("John", "Doe", "123-45-6789", "Engineering", -5000, "2023-01-01", "Salary")] // Negative salar
+    [InlineData("John", "Doe", "123-45-6789", "Engineering", 0, "2023-01-01", "Salary")] // Zero salary
+    [InlineData("John", "Doe", "123-45-6789", "Engineering", 60000, "1899-12-01", "HireDate")] // Invalid hire date
+    [InlineData("John", "Doe", "123-45-6789", "Engineering", 1000001, "2023-01-01", "Salary")] // Null hire date
     public void HireEmployee_InvalidModel_ThrowsArgumentException(string firstName, string lastName, string ssn, string department, decimal salary, string hireDateStr, string expectedParamName)
     {
         // Arrange
