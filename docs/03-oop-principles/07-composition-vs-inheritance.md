@@ -194,12 +194,10 @@ classDiagram
     
     HybridEngine *-- GasolineEngine : composed of
     HybridEngine *-- ElectricMotor : composed of
-```
 
-```text
-    note for Vehicle_Inheritance : "INHERITANCE PROBLEMS:\n• Deep hierarchy\n• Code duplication\n• Rigid structure\n• Diamond problem\n• Hard to test"
+    note for Vehicle_Inheritance "INHERITANCE PROBLEMS:<br/>- Deep hierarchy<br/>- Code duplication<br/>- Rigid structure<br/>- Diamond problem<br/>- Hard to test"
     
-    note for Vehicle_Composition : "COMPOSITION BENEFITS:\n• Flexible structure\n• Code reuse\n• Easy testing\n• Runtime changes\n• Single responsibility"
+    note for Vehicle_Composition "COMPOSITION BENEFITS:<br/>- Flexible structure<br/>- Code reuse<br/>-• Easy testing<br/>- Runtime changes<br/>- Single responsibility"
 ```
 
 ## 🚫 Violation Example (Over-using Inheritance)

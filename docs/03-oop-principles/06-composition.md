@@ -145,12 +145,10 @@ classDiagram
     IEngine <|.. ElectricMotor : implements
     IFuelSystem <|.. StandardFuelSystem : implements
     IFuelSystem <|.. ElectricBatterySystem : implements
-```
 
-```text
-    note for Vehicle_Inheritance : "INHERITANCE:\n- Rigid structure\n- Hard to change\n- Code duplication\n- Limited flexibility"
+    note for Vehicle_Inheritance "INHERITANCE:<br/>- Rigid structure<br/>- Hard to change<br/>- Code duplication<br/>- Limited flexibility"
     
-    note for Vehicle_Composition : "COMPOSITION:\n- Flexible structure\n- Easy to change components\n- Code reuse\n- High flexibility"
+    note for Vehicle_Composition "COMPOSITION:<br/>- Flexible structure<br/>- Easy to change components<br/>- Code reuse<br/>- High flexibility"
 ```
 
 ## 🚫 Violation Example (Over-reliance on Inheritance)

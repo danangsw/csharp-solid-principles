@@ -89,16 +89,14 @@ classDiagram
     %% V2 relationships - same inheritance but now broken
     BaseRepository_V2 <|-- UserRepository_V2 : inherits (BROKEN!)
     BaseRepository_V2 <|-- ProductRepository_V2 : inherits (BROKEN!)
-```
 
-```text
-    note for BaseRepository_V1 : "VERSION 1:\nStable base class\nDerived classes work correctly"
+    note for BaseRepository_V1 "VERSION 1:<br/>Stable base class<br/>Derived classes work correctly"
+
+    note for BaseRepository_V2 "VERSION 2:<br/>'Improved' with caching<br/>Same public interface<br/>BUT breaks derived classes!"
     
-    note for BaseRepository_V2 : "VERSION 2:\n'Improved' with caching\nSame public interface\nBUT breaks derived classes!"
+    note for UserRepository_V2 "BROKEN:<br/>Base class caching conflicts<br/>with UserRepository's own cache<br/>Double-caching issues"
     
-    note for UserRepository_V2 : "BROKEN:\nBase class caching conflicts\nwith UserRepository's own cache\nDouble-caching issues"
-    
-    note for ProductRepository_V2 : "BROKEN:\nCache invalidation conflicts\nwith category indexing\nInconsistent state"
+    note for ProductRepository_V2 "BROKEN:<br/>Cache invalidation conflicts<br/>with category indexing<br/>Inconsistent state"
 ```
 
 ## 🚫 Violation Example (Fragile Base Class)
