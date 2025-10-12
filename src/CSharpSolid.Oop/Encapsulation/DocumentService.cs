@@ -131,10 +131,10 @@ public class DocumentService
 
     public void Archive(string userId)
     {
-        ValidateEditAccess(userId);
-
         if (_status == DocumentStatus.Archived)
             throw new InvalidOperationException("Document is already archived.");
+
+        ValidateEditAccess(userId);
 
         _status = DocumentStatus.Archived;
         _modifiedBy = userId;
@@ -143,9 +143,12 @@ public class DocumentService
         CreateVersion($"Document archived by {userId}", userId);
     }
 
-    public byte[] GetContent(string userId)
+    public byte[] GetContent(string documentId, string userId)
     {
         ValidateReadAccess(userId);
+
+        if (documentId != _documentId)
+            throw new ArgumentException("Invalid document ID. Access denied.");
 
         if (_fileContent == null || _fileContent.Length == 0)
             throw new InvalidOperationException("Document content is empty.");
@@ -165,7 +168,7 @@ public class DocumentService
 
         var normalizedTag = tag.Trim().ToLower();
 
-        if (!_tags.Contains(normalizedTag))
+        if (_tags.Contains(normalizedTag))
             throw new InvalidOperationException($"Tag '{normalizedTag}' already exists.");
 
         _tags.Add(normalizedTag);
@@ -228,7 +231,6 @@ public class DocumentService
         // Check for null or empty
         if (string.IsNullOrWhiteSpace(fileName))
             return false;
-
         // Check for invalid characters
         if (fileName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
             return false;
