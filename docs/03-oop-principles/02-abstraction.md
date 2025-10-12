@@ -1664,15 +1664,19 @@ public class OrderServiceAbstractionTests
 ## 🎯 Interview Questions
 
 **Q: What's the difference between abstraction and encapsulation?**
+
 **A:** Abstraction focuses on hiding implementation complexity and showing only essential features, while encapsulation bundles data and methods together and controls access. Abstraction is about interface design, encapsulation is about data protection.
 
 **Q: How does abstraction help with maintainability?**
+
 **A:** Abstraction creates stable interfaces that hide implementation details. This means internal changes don't affect client code, making the system easier to maintain and evolve without breaking existing functionality.
 
 **Q: Give an example where abstraction significantly improves an ERP system.**
+
 **A:** In an ERP system, abstracting payment processing allows the same order processing code to work with credit cards, PayPal, bank transfers, and future payment methods without modification, while hiding the complexity of each payment provider's API.
 
 **Q: When might abstraction hurt performance?**
+
 **A:** Abstraction can add overhead through virtual method calls, interface lookups, and additional layers. However, this is usually negligible compared to the benefits, and performance-critical code can be optimized while maintaining abstraction at the architectural level.
 
 ## 📝 Checklist

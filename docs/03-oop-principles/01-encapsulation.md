@@ -1079,15 +1079,19 @@ public class DocumentEncapsulationTests
 ## 🎯 Interview Questions
 
 **Q: What's the difference between encapsulation and data hiding?**
+
 **A:** Data hiding is a subset of encapsulation. Encapsulation bundles data and methods together and controls access through well-defined interfaces. Data hiding specifically refers to making internal data private and inaccessible from outside the class.
 
 **Q: How does encapsulation help with maintainability?**
+
 **A:** Encapsulation creates a contract through public interfaces while hiding implementation details. This means internal changes don't affect external code, making the system easier to maintain and evolve.
 
-**Q: Give an example of encapsulation violation that could cause problems in an ERP system.****
+**Q: Give an example of encapsulation violation that could cause problems in an ERP system.**
+
 **A:** Exposing employee salary as a public field without validation could allow negative salaries, causing payroll calculation errors, tax reporting issues, and financial reconciliation problems throughout the system.
 
 **Q: How do you balance encapsulation with performance?**
+
 **A:** Use properties for validation and control, but consider direct field access for internal operations when appropriate. Profile performance-critical code and optimize judiciously while maintaining encapsulation principles.
 
 ## 📝 Checklist
