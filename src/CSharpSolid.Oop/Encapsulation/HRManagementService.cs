@@ -27,7 +27,7 @@ public class HRManagementService
             .WithSocialSecurityNumber(model.SocialSecurityNumber ?? throw new ArgumentNullException(nameof(model.SocialSecurityNumber)))
             .WithDepartment(model.Department ?? throw new ArgumentNullException(nameof(model.Department)))
             .WithInitialSalary(model.Salary)
-            .WithHireDate(model.HireDate)
+            .WithHireDate(model.HireDate == default ? _timeProvider.UtcNow : model.HireDate)
             .WithTimeProvider(_timeProvider)
             .Build();
 

@@ -37,16 +37,16 @@ public class GoodEmployee
     // Internal constructor for builder pattern
     internal GoodEmployee(EmployeeDetailBuilder builder)
     {
+        _timeProvider = builder.TimeProvider ?? new SystemTimeProvider();
         _employeeId = builder.EmployeeId ?? throw new ArgumentException("Employee ID is required", nameof(builder.EmployeeId));
 
-        _firstName = builder.FirstName ?? string.Empty;
-        _lastName = builder.LastName ?? string.Empty;
-        _socialSecurityNumber = builder.SocialSecurityNumber ?? string.Empty;
-        _salary = builder.Salary;
-        _department = builder.Department ?? string.Empty;
-        _hireDate = builder.HireDate;
+        FirstName = builder.FirstName;
+        LastName = builder.LastName;
+        SocialSecurityNumber = builder.SocialSecurityNumber;
+        Salary = builder.Salary;
+        Department = builder.Department;
+        HireDate = builder.HireDate;
 
-        _timeProvider = builder.TimeProvider ?? new SystemTimeProvider();
         _projects = new List<string>();
         _payrollHistory = new List<PayrollRecord>();
         _isActive = true;
@@ -55,7 +55,7 @@ public class GoodEmployee
 
     public string EmployeeId => _employeeId;
 
-    public string FirstName
+    public string? FirstName
     {
         get => _firstName ?? string.Empty;
         set
@@ -70,7 +70,7 @@ public class GoodEmployee
         }
     }
 
-    public string LastName
+    public string? LastName
     {
         get => _lastName ?? string.Empty;
         set
@@ -93,25 +93,24 @@ public class GoodEmployee
         set
         {
             if (value < MinSalary)
-                throw new ArgumentException("Salary cannot be negative", nameof(value));
+                throw new ArgumentException("Salary cannot be negative", nameof(Salary));
 
             if (value > MaxSalary)
-                throw new ArgumentException($"Salary cannot exceed {MaxSalary:C}", nameof(value));
+                throw new ArgumentException($"Salary cannot exceed {MaxSalary:C}", nameof(Salary));
 
             _salary = value;
         }
     }
 
-    public string Department
+    public string? Department
     {
         get => _department ?? string.Empty;
         set
         {
             if (string.IsNullOrWhiteSpace(value))
-                throw new ArgumentException("Department cannot be empty", nameof(value));
+                throw new ArgumentException("Department cannot be empty", nameof(Department));
 
-
-            var validDepartments = new[] { "IT", "Finance", "HR", "Marketing", "Operation" };
+            var validDepartments = new[] { "IT", "Finance", "HR", "Marketing", "Operation", "Engineering" };
             if (!validDepartments.Contains(value))
                 throw new InvalidOperationException($"Invalid department. Must be one of: {string.Join(", ", validDepartments)}");
 
@@ -124,12 +123,10 @@ public class GoodEmployee
         get => _hireDate;
         set
         {   
-            if (value == default)
-                throw new ArgumentException("Hire date is required", nameof(value));
             if (value > _timeProvider.UtcNow)
-                throw new ArgumentException("Hire date cannot be in the future", nameof(value));
+                throw new ArgumentException("Hire date cannot be in the future", nameof(HireDate));
             if (value < MinHireDate)
-                throw new ArgumentException("Hire date cannot before 01-01-1900", nameof(value));
+                throw new ArgumentException("Hire date cannot before 01-01-1900", nameof(HireDate));
 
             _hireDate = value;
         }
@@ -147,22 +144,22 @@ public class GoodEmployee
         set
         {
             if (value < MinBonusPercentage)
-                throw new ArgumentException($"Bonus percentage cannot be negative value", nameof(value));
+                throw new ArgumentException($"Bonus percentage cannot be negative value", nameof(BonusPercentage));
             if (value > MaxBonusPercentage)
-                throw new ArgumentException($"Bonus percentage cannot be exceed {MaxBonusPercentage:P}", nameof(value));
+                throw new ArgumentException($"Bonus percentage cannot be exceed {MaxBonusPercentage:P}", nameof(BonusPercentage));
 
             _bonusPercentage = value;
         }
     }
 
-    public string SocialSecurityNumber
+    public string? SocialSecurityNumber
     {
         get => _socialSecurityNumber == null ? string.Empty : MaskingSSN(_socialSecurityNumber);
         set
         {
             if (!IsValidSSN(value))
             {
-                throw new ArgumentException("Invalid Social Security Number format", nameof(value));
+                throw new ArgumentException("Invalid Social Security Number format", nameof(SocialSecurityNumber));
             }
 
             _socialSecurityNumber = value;
@@ -368,7 +365,7 @@ public class GoodEmployee
         return $"***-**-{value.Substring(value.Length - 4)}";
     }
 
-    private static bool IsValidSSN(string value)
+    private static bool IsValidSSN(string? value)
     {
         if (string.IsNullOrWhiteSpace(value))
             return false;
