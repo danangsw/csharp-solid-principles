@@ -20,6 +20,7 @@
 
 ### **Beginner Level**
 Start with the core four principles in order:
+
 1. **Encapsulation** - Learn data hiding and access control
 2. **Abstraction** - Understand hiding implementation details
 3. **Inheritance** - Master code reuse through class hierarchies
@@ -27,13 +28,15 @@ Start with the core four principles in order:
 
 ### **Intermediate Level**
 Move to advanced concepts:
-5. **Coupling** - Learn about dependencies between classes
-6. **Composition** - Master object collaboration patterns
+
+5. **Coupling** - Learn about dependencies between classes<br/>
+6. **Composition** - Master object collaboration patterns<br/>
 
 ### **Advanced Level**
 Tackle design decisions and pitfalls:
-7. **Composition vs Inheritance** - Make informed architectural choices
-8. **Fragile Base Class Problem** - Avoid common inheritance traps
+
+7. **Composition vs Inheritance** - Make informed architectural choices<br/>
+8. **Fragile Base Class Problem** - Avoid common inheritance traps<br/>
 
 ## 🏢 ERP System Context
 
