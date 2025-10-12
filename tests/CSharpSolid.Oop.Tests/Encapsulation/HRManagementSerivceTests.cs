@@ -45,6 +45,23 @@ public class HRManagementServiceTests
         return $"***-**-{value.Substring(value.Length - 4)}";
     }
 
+    private void VerifyLoggerCalled(LogLevel level, Times times)
+    {
+        _loggerMock.Verify(
+            x => x.Log(
+                level,
+                It.IsAny<EventId>(),
+                It.IsAny<It.IsAnyType>(),
+                It.IsAny<Exception>(),
+                It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
+            times);
+    }
+
+    private void VerifyUtcNowTimeProviderCalled(Times times)
+    {
+        _timeProviderMock.Verify(tp => tp.UtcNow, times);
+    }
+
     [Fact]
     public void HireEmployee_ValidModel_ReturnsEmployeeId()
     {
@@ -89,6 +106,13 @@ public class HRManagementServiceTests
         // Assert
         act.Should().Throw<ArgumentException>()
             .Where(e => e.ParamName == expectedParamName);
+
+        // Additional check for ILogger calls and time provider can be added here if needed
+        // Verify logger was called for error logging
+        VerifyLoggerCalled(LogLevel.Error, Times.Once());
+        
+        // Verify time provider was called (if used in validation)
+        VerifyUtcNowTimeProviderCalled(Times.AtLeastOnce());
     }
 
     [Fact]
@@ -103,6 +127,10 @@ public class HRManagementServiceTests
         // Assert
         act.Should().Throw<ArgumentException>()
             .Where(e => e.ParamName == "model");
+
+              // Additional check for ILogger calls and time provider can be added here if needed
+        // Verify logger was called for error logging
+        VerifyLoggerCalled(LogLevel.Error, Times.Once());
     }
 
     [Fact]
@@ -125,4 +153,35 @@ public class HRManagementServiceTests
         result.Department.Should().Be(model.Department);
         result.HireDate.Should().Be(model.HireDate);
     }
+
+    public void UpdateEmployee_ValidUpdate_ChangesSalaryAndDepartment()
+    {
+        // Arrange
+        var model = CreateValidEmployeeModel();
+        var employeeId = _hrService.HireEmployee(model);
+
+        var updateModel = new EmployeeDataModel
+        {
+            FirstName = model.FirstName,
+            LastName = model.LastName,
+            SocialSecurityNumber = model.SocialSecurityNumber,
+            Department = "Marketing", // Changed department
+            Salary = 70000m, // Increased salary
+            HireDate = model.HireDate
+        };
+
+        // Act
+        _hrService.UpdateEmployeeDetails(employeeId, updateModel);
+        var updatedEmployee = _hrService.GetEmployeeDetails(employeeId);
+
+        // Assert
+        updatedEmployee.Should().NotBeNull();
+        updatedEmployee.EmployeeId.Should().Be(employeeId);
+        updatedEmployee.FirstName.Should().Be(updateModel.FirstName);
+        updatedEmployee.LastName.Should().Be(updateModel.LastName);
+        updatedEmployee.SocialSecurityNumber.Should().Be(MaskingSSN(updateModel.SocialSecurityNumber));
+        updatedEmployee.Salary.Should().Be(updateModel.Salary);
+        updatedEmployee.Department.Should().Be(updateModel.Department);
+        updatedEmployee.HireDate.Should().Be(updateModel.HireDate);
+        updatedEmployee.IsActive.Should().BeTrue();}
 }

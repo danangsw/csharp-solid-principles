@@ -48,6 +48,31 @@ public class HRManagementService
         }
     }
 
+    public void UpdateEmployeeDetails(string employeeId, EmployeeDataModel employee)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(employeeId))
+                throw new ArgumentException("EmployeeId cannot be null or empty", nameof(employeeId));
+            if (employee == null) throw new ArgumentException("Model cannot be null", nameof(employee));
+
+            var existingEmployee = FindEmployeeById(employeeId);
+
+            // Update fields with validation through properties
+            existingEmployee.FirstName = employee.FirstName ?? existingEmployee.FirstName;
+            existingEmployee.LastName = employee.LastName ?? existingEmployee.LastName;
+            existingEmployee.SocialSecurityNumber = employee.SocialSecurityNumber ?? existingEmployee.SocialSecurityNumber;
+            existingEmployee.Department = employee.Department ?? existingEmployee.Department;
+            existingEmployee.Salary = employee.Salary != 0 ? employee.Salary : existingEmployee.Salary;
+            existingEmployee.HireDate = employee.HireDate != default ? employee.HireDate : existingEmployee.HireDate;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error updating details for employee {EmployeeId}", employeeId);
+            throw;
+        }
+    }
+
     public void PromoteEmployee(EmployeeDataModel model, string newTitle, decimal salaryIncrease)
     {
         try
@@ -137,4 +162,5 @@ public class EmployeeDataModel
     public decimal Salary { get; set; }
     public string? Department { get; set; }
     public DateTime HireDate { get; set; }
+    public bool IsActive { get; set; }
 }
