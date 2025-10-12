@@ -64,34 +64,31 @@ Each principle includes:
 
 ## 🔄 Relationships Between Principles
 
-```
-┌─────────────────┐    ┌─────────────────┐
-│   Encapsulation │────│   Abstraction   │
-│                 │    │                 │
-│ • Data Hiding   │    │ • Hide Details  │
-│ • Access Control│    │ • Simple Interface│
-└─────────────────┘    └─────────────────┘
-         │                       │
-         │              ┌─────────────────┐
-         └──────────────│   Inheritance   │
-                        │                 │
-                        │ • Code Reuse    │
-                        │ • Is-A Relations│
-                        └─────────────────┘
-                                 │
-                        ┌─────────────────┐
-                        │  Polymorphism   │
-                        │                 │
-                        │ • Runtime Binding│
-                        │ • Multiple Forms│
-                        └─────────────────┘
+```mermaid
+---
+title: Relationship Between Principles
+---
+flowchart TB
+    style encapsulation fill:#fff,stroke:#333,stroke-width:2px,color:#000
+    style abstraction fill:#fff,stroke:#333,stroke-width:2px,color:#000
+    style inheritance fill:#fff,stroke:#333,stroke-width:2px,color:#000
+    style polymorphism fill:#fff,stroke:#333,stroke-width:2px,color:#000
+    style coupling fill:#fff,stroke:#333,stroke-width:2px,color:#000
+    style composition fill:#fff,stroke:#333,stroke-width:2px,color:#000
+    
+    encapsulation["**Encapsulation**<br/><br/>Data Hiding<br/>Access Control"]
+    abstraction["**Abstraction**<br/><br/>Simplified Interfaces<br/>Implementation Hiding"]
+    inheritance["**Inheritance**<br/><br/>Code Reusability<br/>Is-A / Hierarchical Relationships"]
+    polymorphism["**Polymorphism**<br/><br/>Method Overriding<br/>Interface Implementation"]
 
-┌─────────────────┐    ┌─────────────────┐
-│    Coupling     │────│   Composition   │
-│                 │    │                 │
-│ • Dependencies  │    │ • Has-A Relations│
-│ • Loose/Tight   │    │ • Object Collab │
-└─────────────────┘    └─────────────────┘
+    encapsulation <--> abstraction <--> inheritance <--> polymorphism
+    encapsulation <--> inheritance
+
+    coupling["**Coupling**<br/><br/>Dependency Management<br/>Loose/Tight Coupling"]
+    composition["**Composition**<br/><br/>Has-A Relationships<br/>Object Combination"]
+
+    coupling <--> composition
+    
 ```
 
 ## 🎯 Interview Preparation
