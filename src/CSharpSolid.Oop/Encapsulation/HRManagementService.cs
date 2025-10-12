@@ -19,6 +19,8 @@ public class HRManagementService
     {
         try
         {
+            if (model == null) throw new ArgumentException("Model cannot be null", nameof(model));
+
             var employeeId = GenerateEmployeeId();
             var newEmployee = new EmployeeDetailBuilder()
             .WithEmployeeId(employeeId)
@@ -34,8 +36,13 @@ public class HRManagementService
             _employees.Add(newEmployee);
             return employeeId;
         }
+        catch (ArgumentException argEx)
+        {
+            _logger.LogError(argEx, "Invalid employee data provided");
+            throw;
+        }
         catch (Exception ex)
-        {       
+        {
             _logger.LogError(ex, "Error hiring employee {EmployeeId}", model.EmployeeId);
             throw;
         }

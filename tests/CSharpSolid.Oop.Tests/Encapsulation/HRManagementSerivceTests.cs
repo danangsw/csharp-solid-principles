@@ -1,10 +1,9 @@
-﻿using Xunit;
-using Moq;
+﻿using Moq;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using CSharpSolid.Oop.Encapsulation;
 
-namespace CSharpSolid.Oop.Tests;
+namespace CSharpSolid.Oop.Tests.Encapsulation;
 public class HRManagementServiceTests
 {
     private readonly Mock<ILogger<HRManagementService>> _loggerMock;
@@ -38,6 +37,14 @@ public class HRManagementServiceTests
         };
     }
 
+    private static string MaskingSSN(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value) || value.Length < 4)
+            return "***-**-****";
+
+        return $"***-**-{value.Substring(value.Length - 4)}";
+    }
+
     [Fact]
     public void HireEmployee_ValidModel_ReturnsEmployeeId()
     {
@@ -58,7 +65,7 @@ public class HRManagementServiceTests
     [InlineData("John", null, "123-45-6789", "Engineering", 60000, "2023-01-01", "LastName")]
     [InlineData("John", "Doe", null, "Engineering", 60000, "2023-01-01", "SocialSecurityNumber")]
     [InlineData("John", "Doe", "123-45-6789", null, 60000, "2023-01-01", "Department")] // Added Department null case
-    [InlineData("John", "Doe", "123-45-6789", "Engineering", 60000, "2029-01-01", "HireDate")]
+    [InlineData("John", "Doe", "123-45-6789", "Engineering", 60000, "2029-01-01", "HireDate")] // Hire date in the future
     public void HireEmployee_InvalidModel_ThrowsArgumentException(string firstName, string lastName, string ssn, string department, decimal salary, string hireDateStr, string expectedParamName)
     {
         // Arrange
@@ -78,5 +85,40 @@ public class HRManagementServiceTests
         // Assert
         act.Should().Throw<ArgumentException>()
             .Where(e => e.ParamName == expectedParamName);
+    }
+
+    [Fact]
+    public void HireEmployee_NullModel_ThrowsArgumentException()
+    {
+        // Arrange
+        EmployeeDataModel model = null;
+
+        // Act
+        Action act = () => _hrService.HireEmployee(model);
+
+        // Assert
+        act.Should().Throw<ArgumentException>()
+            .Where(e => e.ParamName == "model");
+    }
+
+    [Fact]
+    public void GetEmployeeDetails_ValidId_ReturnsEmployeeDataModel()
+    {
+        // Arrange
+        var model = CreateValidEmployeeModel();
+        var employeeId = _hrService.HireEmployee(model);
+
+        // Act
+        var result = _hrService.GetEmployeeDetails(employeeId);
+
+        // Assert
+        result.Should().NotBeNull();
+        result.EmployeeId.Should().Be(employeeId);
+        result.FirstName.Should().Be(model.FirstName);
+        result.LastName.Should().Be(model.LastName);
+        result.SocialSecurityNumber.Should().Be(MaskingSSN(model.SocialSecurityNumber));
+        result.Salary.Should().Be(model.Salary);
+        result.Department.Should().Be(model.Department);
+        result.HireDate.Should().Be(model.HireDate);
     }
 }
