@@ -96,12 +96,10 @@ classDiagram
     INotificationService <|.. SlackNotificationService : implements
     
     NotificationManager --> INotificationService : uses polymorphically
-```
 
-```text
-    note for INotificationService : "Common interface enables\npolymorphic behavior.\nSame method signature\nworks with all implementations."
+    note for INotificationService "Common interface enables<br/>polymorphic behavior.<br/>Same method signature<br/>works with all implementations."
     
-    note for NotificationManager : "Uses polymorphism to work\nwith any notification service\nwithout knowing specific\nimplementation details."
+    note for NotificationManager "Uses polymorphism to work<br/>with any notification service<br/>without knowing specific<br/>implementation details."
 ```
 
 ## 🚫 Violation Example (No Polymorphism)

@@ -72,8 +72,8 @@ classDiagram
     IPaymentProcessor <|.. PayPalProcessor : implements
     IPaymentProcessor <|.. BankTransferProcessor : implements
 
-    note for IPaymentProcessor "Abstract interface hides implementation complexity. Clients only see essential\noperations."
-    note for CreditCardProcessor "Concrete implementation\nhandles credit card specifics: - Encryption - Fraud detection - Bank API calls."
+    note for IPaymentProcessor "Abstract interface hides<br/>implementation complexity.<br/>Clients only see essential operations."
+    note for CreditCardProcessor "Concrete implementation handles<br/>credit card specifics:<br/>- Encryption<br/>- Fraud detection<br/>- Bank API calls."
 ```
 
 ## 🚫 Violation Example (No Abstraction)

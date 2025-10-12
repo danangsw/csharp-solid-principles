@@ -47,7 +47,7 @@ classDiagram
     
     BankAccount --> Transaction : contains
     
-    note for BankAccount "Encapsulation hides private fields and provides controlled access through public methods"
+    note for BankAccount "Encapsulation hides private fields<br/>and provides controlled access<br/>through public methods"
 ```
 
 ## 🚫 Violation Example (Poor Encapsulation)

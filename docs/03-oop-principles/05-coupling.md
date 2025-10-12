@@ -93,12 +93,10 @@ classDiagram
     OrderProcessor_Loose --> ILogger : depends on abstraction
     OrderProcessor_Loose --> IEmailService : depends on abstraction
     OrderProcessor_Loose --> IOrderRepository : depends on abstraction
-```
 
-```text
-    note for OrderProcessor_Tight : "TIGHT COUPLING:\n- Hard to test\n- Hard to change\n- Rigid implementation\n- Multiple responsibilities"
+    note for OrderProcessor_Tight "TIGHT COUPLING:<br/>- Hard to test<br/>- Hard to change<br/>- Rigid implementation<br/>- Multiple responsibilities"
     
-    note for OrderProcessor_Loose : "LOOSE COUPLING:\n- Easy to test\n- Easy to change\n- Flexible implementation\n- Single responsibility"
+    note for OrderProcessor_Loose "LOOSE COUPLING:<br/>- Easy to test<br/>- Easy to change<br/>- Flexible implementation<br/>- Single responsibility"
 ```
 
 ## 🚫 Violation Example (Tight Coupling)
