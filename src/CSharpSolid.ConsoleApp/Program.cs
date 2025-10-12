@@ -1,4 +1,5 @@
 using CSharpSolid.Oop.Encapsulation;
+using CSharpSolid.Core.Library;
 
 namespace CSharpSolid.ConsoleApp;
 

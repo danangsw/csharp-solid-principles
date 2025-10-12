@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CSharpSolid.Oop\CSharpSolid.Oop.csproj" />
+    <ProjectReference Include="..\CSharpSolid.Core\CSharpSolid.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
