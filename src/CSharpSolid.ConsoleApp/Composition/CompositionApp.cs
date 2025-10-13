@@ -30,7 +30,8 @@ namespace CSharpSolid.ConsoleApp
             Console.WriteLine("🚗 Composing Car from components:");
             var sportsCar = new Car("Mustang GT", "Red", v8Engine, sportWheels);
             Console.WriteLine($"- Created: {sportsCar.Color} {sportsCar.Model}");
-            Console.WriteLine($"- Engine Info: {sportsCar.GetEngineInfo()}\n");
+            Console.WriteLine($"- Engine Details: {sportsCar.GetEngineDetails()}\n");
+            Console.WriteLine($"- Wheels Details: {sportsCar.GetWheelsDetails()}\n");
 
             // Use the composed object
             Console.WriteLine("🎮 Using the composed Car:");

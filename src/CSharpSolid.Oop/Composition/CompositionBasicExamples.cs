@@ -85,7 +85,8 @@ namespace CSharpSolid.Oop.Composition
         }
 
         // Can access information from components
-        public string GetEngineInfo() => $"{_engine.Type} ({_engine.Horsepower} HP)";
+        public string GetEngineDetails() => $"Engine Type: {_engine.Type}, Horsepower: {_engine.Horsepower}";
+        public string GetWheelsDetails() => $"Wheels Model: {_wheels.Count}, Type: {_wheels.Type}";
     }
 
     // Another example: Computer composed of CPU, Memory, Storage
