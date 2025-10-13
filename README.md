@@ -75,6 +75,7 @@ Each principle and pattern includes:
 - [Microsoft Learn - SOLID Principles](https://learn.microsoft.com/en-us/dotnet/architecture/)
 - [C# Corner - SOLID Principles](https://www.c-sharpcorner.com/UploadFile/damubetha/solid-principles-in-C-Sharp/)
 - [FreeCodeCamp - SOLID in C#](https://www.freecodecamp.org/news/what-are-the-solid-principles-in-csharp)
+- [🤖 GitHub Copilot Study Instructions](.github/copilot-instructions.md)
 
 ---
 
