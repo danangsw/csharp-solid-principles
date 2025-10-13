@@ -7,6 +7,28 @@ public class Program
 {
     public static void Main(string[] args)
     {
+        // Run Composition Demo
+        CompositionAppDemo();
+
+        // Run HR Management Demo
+        HRAppDemo();
+    }
+
+    private static void CompositionAppDemo()
+    {
+        Console.WriteLine("\n" + new string('=', 50));
+        Console.WriteLine("Press any key to continue to Composition demo...");
+        Console.ReadKey();
+
+        CompositionBasicDemo.Run();
+    }
+
+    private static void HRAppDemo()
+    { 
+        Console.WriteLine("\n" + new string('=', 50));
+        Console.WriteLine("Press any key to continue to HR Management demo...");
+        Console.ReadKey();
+
         // Setup our custom IoC container
         var container = ConfigureServices();
 
