@@ -1,5 +1,6 @@
 using CSharpSolid.Oop.Encapsulation;
 using CSharpSolid.Core.Library;
+using CSharpSolid.Oop;
 
 namespace CSharpSolid.ConsoleApp;
 
@@ -7,11 +8,17 @@ public class Program
 {
     public static void Main(string[] args)
     {
+        // Run OOP Principles Demo
+        OOPPrinciplesDemo.RunAllDemos();
+
+        // Run Dependency Injection Demo
+        DependencyInjectionDemo.RunAllDemos();
+
         // Run Composition Demo
-        CompositionAppDemo();
+        // CompositionAppDemo();
 
         // Run HR Management Demo
-        HRAppDemo();
+        // HRAppDemo();
     }
 
     private static void CompositionAppDemo()
@@ -24,7 +31,7 @@ public class Program
     }
 
     private static void HRAppDemo()
-    { 
+    {
         Console.WriteLine("\n" + new string('=', 50));
         Console.WriteLine("Press any key to continue to HR Management demo...");
         Console.ReadKey();
@@ -43,7 +50,7 @@ public class Program
         var container = new SimpleIoCContainer();
 
         // Register our simple logger
-        container.AddSingleton<ISimpleLogger, ConsoleLogger>();
+        container.AddSingleton<ISimpleLogger, CSharpSolid.Core.Library.ConsoleLogger>();
 
         // Register logger adapter for HRManagementService
         container.AddTransient(typeof(Microsoft.Extensions.Logging.ILogger<HRManagementService>),
